@@ -1,0 +1,57 @@
+<html>
+<head>
+</head>
+<body>
+<canvas id="stickCanvas" width="512" height="512"></canvas>
+<script>
+var c = document.getElementById("stickCanvas").getContext("2d");
+var oneoversqrt2 = 1 / Math.sqrt(2);
+var vectors = [
+  {x:1, y:0},
+  {x:oneoversqrt2, y:oneoversqrt2},
+  {x:0, y:1},
+  {x:-oneoversqrt2, y:oneoversqrt2},
+  {x:-1, y:0},
+  {x:-oneoversqrt2, y:-oneoversqrt2},
+  {x:0, y:-1},
+  {x:oneoversqrt2, y:-oneoversqrt2}
+];
+
+c.translate(256, 256);
+c.scale(250, 250);
+
+(function drawBorder(){
+	c.strokeStyle = "#000000";
+	c.lineWidth = 1 / 256;
+	c.beginPath();
+	c.moveTo(vectors[vectors.length - 1].x, vectors[vectors.length - 1].y)
+	for (var i = 0; i < vectors.length; i++){
+	  c.lineTo(vectors[i].x, vectors[i].y);
+	}
+	c.stroke();
+})();
+(function drawPoints(){
+	c.fillStyle = "#c00000";
+	for (var i = 1; i < Math.pow(2, vectors.length); i++){
+		var cumulativeSum = {x: 0, y: 0};
+		var numberOfVectors = 0;
+		for (var j = 0; j < vectors.length; j++){
+			if (Math.pow(2, j) & i){
+				cumulativeSum.x += vectors[j].x;
+				cumulativeSum.y += vectors[j].y;
+				numberOfVectors++;
+			}
+		}
+		var averageVector = {
+			x: cumulativeSum.x / numberOfVectors, 
+			y: cumulativeSum.y / numberOfVectors
+		};
+		c.beginPath();
+		c.ellipse(averageVector.x, averageVector.y, 4 / 256, 4 / 256, 0, 0, Math.PI * 2);
+		c.fill();
+	}
+})();
+
+</script>
+</body>
+</html>
