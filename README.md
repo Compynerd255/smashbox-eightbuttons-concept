@@ -38,7 +38,7 @@ the existing WASD configuration can still be used).
 This repository simply generates the set of analog inputs that are possible with this input scheme and
 displays them in an attractive format. The resulting picture is reproduced below:
 
-![Results](results.png)
+![Results](result.png)
 
 As you can see, this control scheme offers a terrific amount of possible analog inputs, with 72 in the
 significant outer range and even more in the range closer to the origin. This not only exceeds the number
